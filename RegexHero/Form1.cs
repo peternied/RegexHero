@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RegexHero.Properties;
 
 namespace RegexHero
 {
@@ -20,6 +21,8 @@ namespace RegexHero
         public Form1()
         {
             InitializeComponent();
+
+            this.materialsBox.Text = Resources.example1;
 
             this.UpdateRegex += (pattern) =>
             {
