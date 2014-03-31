@@ -57,7 +57,7 @@ namespace RegexHero
             MessageBox.Show("No Cheating!");
         }
 
-        private void RegexUpdated(object sender, EventArgs e)
+        private void RegexSourceTextChanged(object sender, EventArgs e)
         {
             TextBox source = sender as TextBox;
             if (source == null)
