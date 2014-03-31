@@ -16,7 +16,8 @@ namespace RegexHero
     {
         private event Action<string> UpdateRegex;
         private event Action<TextBox> BadRegexUpdate;
-        private event Action<Regex, MatchCollection> CalculateScore;
+        private event Action<MatchCollection> UpdatePreviewPane;
+        private event Action<string, MatchCollection> CalculateScore;
 
         public Form1()
         {
@@ -32,13 +33,19 @@ namespace RegexHero
                 {
                     r = new Regex(pattern);
                     mc = r.Matches(this.materialsBox.Text);
-                    
-                } catch(Exception)
+                }
+                catch(Exception)
+                {
+                }
+
+                if (r == null || mc == null)
                 {
                     this.BadRegexUpdate(this.textBox1);
+                    return;
                 }
-                
-                this.CalculateScore(r, mc);
+
+                this.CalculateScore(pattern, mc);
+                this.UpdatePreviewPane(mc);
             };
 
             this.BadRegexUpdate += (textBox) =>
@@ -46,9 +53,16 @@ namespace RegexHero
                 textBox.ForeColor = Color.Red;
             };
 
-            CalculateScore += (regex, matches) =>
+            this.CalculateScore += (regex, matches) =>
             {
-                scoreLabel.Text = DateTime.Now.ToLongTimeString();
+                int regexSize = regex.Length;
+                int score = regexSize * matches.Count * (matches.Count != 0 ? matches[0].Groups.Count : 1);
+
+                scoreLabel.Text = score.ToString();
+            };
+
+            this.UpdatePreviewPane += (matches) =>
+            {
             };
         }
 
