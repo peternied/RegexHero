@@ -63,6 +63,29 @@ namespace RegexHero
 
             this.UpdatePreviewPane += (matches) =>
             {
+                foreach (Match match in matches)
+                {
+                    foreach (object groups in match.Groups)
+                    {
+                        GroupCollection innerGroup = groups as GroupCollection;
+                        if (innerGroup != null)
+                        {
+                            foreach (Match innerMatch in innerGroup)
+                            {
+                                this.materialsBox.Select(innerMatch.Index, innerMatch.Length);
+                                this.materialsBox.SelectionColor = Color.Green;
+                            }
+                            continue;
+                        }
+
+                        Match outerMatch = groups as Match;
+                        if (outerMatch != null)
+                        {
+                            this.materialsBox.Select(outerMatch.Index, outerMatch.Length);
+                            this.materialsBox.SelectionColor = Color.Green;
+                        }
+                    }
+                }
             };
         }
 
