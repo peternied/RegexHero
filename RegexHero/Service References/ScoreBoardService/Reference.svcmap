@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="02a6652c-48fc-4022-a3fe-13e410ece461" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:34967/ScoreBoardService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ScoreBoardService.wsdl" MetadataType="Wsdl" ID="63e03137-f357-4a9f-8d5e-3d8ce92bf072" SourceId="1" SourceUrl="http://localhost:34967/ScoreBoardService.svc?wsdl" />
+    <MetadataFile FileName="ScoreBoardService.disco" MetadataType="Disco" ID="68063fc1-99d5-4c19-b5e0-be1d39f62f68" SourceId="1" SourceUrl="http://localhost:34967/ScoreBoardService.svc?disco" />
+    <MetadataFile FileName="ScoreBoardService.xsd" MetadataType="Schema" ID="0b7b9f67-341f-4ad9-8372-9a2aab589da4" SourceId="1" SourceUrl="http://localhost:34967/ScoreBoardService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ScoreBoardService1.xsd" MetadataType="Schema" ID="3ae8034f-171a-487d-98d7-6c1b54190b1a" SourceId="1" SourceUrl="http://localhost:34967/ScoreBoardService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ScoreBoardService2.xsd" MetadataType="Schema" ID="e483f2ec-e99a-4a14-915d-642ec7f72f95" SourceId="1" SourceUrl="http://localhost:34967/ScoreBoardService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ScoreBoardService3.xsd" MetadataType="Schema" ID="e3f49efb-3a84-4546-8cab-9ec455f4d29f" SourceId="1" SourceUrl="http://localhost:34967/ScoreBoardService.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

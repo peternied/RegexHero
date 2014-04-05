@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using RegexHero.Properties;
+using RegexHero.ScoreBoardService;
 
 namespace RegexHero
 {
@@ -18,10 +19,20 @@ namespace RegexHero
         private event Action<TextBox> BadRegexUpdate;
         private event Action<MatchCollection> UpdatePreviewPane;
         private event Action<string, MatchCollection> CalculateScore;
+        private Task<GameId> ScoreboardGameId { get; set; }
+        private Task<ScoreBoardVersion> ScoreBoardVersion { get; set; }
 
         public Form1()
         {
             InitializeComponent();
+
+            this.ScoreboardGameId = Task<ScoreBoardService1Client>.Factory
+                .StartNew(()=> new ScoreBoardService1Client())
+                .ContinueWith(t => t.Result.GameId("RegexHero", 1));
+
+            this.ScoreBoardVersion = Task<ScoreBoardService1Client>.Factory
+                .StartNew(()=> new ScoreBoardService1Client())
+                .ContinueWith(t => t.Result.ServiceVersion());
 
             this.materialsBox.Text = Resources.example1;
 
@@ -58,11 +69,18 @@ namespace RegexHero
                 int regexSize = regex.Length;
                 int score = regexSize * matches.Count * (matches.Count != 0 ? matches[0].Groups.Count : 1);
 
+                ScoreBoardService1Client a = new ScoreBoardService.ScoreBoardService1Client();
+                a.SubmitScoreAsync(this.ScoreBoardVersion.Result, this.ScoreboardGameId.Result, Environment.UserName, score);
                 scoreLabel.Text = score.ToString();
+
+                highScoresTextBox.Text = string.Join(Environment.NewLine, a.RetrieveScoresAsync(this.ScoreBoardVersion.Result, this.ScoreboardGameId.Result)
+                    .Result.Select(t => string.Join(" ", t.Item1, t.Item2)));
             };
 
             this.UpdatePreviewPane += (matches) =>
             {
+                this.materialsBox.Select(0, this.materialsBox.MaxLength);
+                this.materialsBox.SelectionColor = Color.Black;
                 foreach (Match match in matches)
                 {
                     foreach (object groups in match.Groups)
