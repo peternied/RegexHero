@@ -62,6 +62,7 @@ namespace RegexHero
             this.BadRegexUpdate += (textBox) =>
             {
                 textBox.ForeColor = Color.Red;
+                this.UpdateMaterialColor(0, this.materialsBox.MaxLength, Color.Black);
             };
 
             this.CalculateScore += (regex, matches) =>
@@ -73,14 +74,18 @@ namespace RegexHero
                 a.SubmitScoreAsync(this.ScoreBoardVersion.Result, this.ScoreboardGameId.Result, Environment.UserName, score);
                 scoreLabel.Text = score.ToString();
 
-                highScoresTextBox.Text = string.Join(Environment.NewLine, a.RetrieveScoresAsync(this.ScoreBoardVersion.Result, this.ScoreboardGameId.Result)
-                    .Result.Select(t => string.Join(" ", t.Item1, t.Item2)));
+                a.RetrieveScoresAsync(this.ScoreBoardVersion.Result, this.ScoreboardGameId.Result)
+                    .ContinueWith(t => highScoresTextBox.Invoke((Action)(() => highScoresTextBox.Text = string.Join(Environment.NewLine, t.Result.Select(i => string.Join(" ", i.Item1, i.Item2))))));
+
+//                highScoresTextBox.Text = string.Join(Environment.NewLine,.Result.Select(t => string.Join(" ", t.Item1, t.Item2)));
             };
 
             this.UpdatePreviewPane += (matches) =>
             {
-                this.materialsBox.Select(0, this.materialsBox.MaxLength);
-                this.materialsBox.SelectionColor = Color.Black;
+                this.UpdateMaterialColor(0, this.materialsBox.MaxLength, Color.Black);
+                int currentCount = 0;
+                const int maxUpdates = 1000;
+
                 foreach (Match match in matches)
                 {
                     foreach (object groups in match.Groups)
@@ -90,8 +95,8 @@ namespace RegexHero
                         {
                             foreach (Match innerMatch in innerGroup)
                             {
-                                this.materialsBox.Select(innerMatch.Index, innerMatch.Length);
-                                this.materialsBox.SelectionColor = Color.Green;
+                                if (currentCount++ > maxUpdates) { continue; }
+                                this.UpdateMaterialColor(innerMatch.Index, innerMatch.Length, this.GetColor(currentCount));
                             }
                             continue;
                         }
@@ -99,12 +104,47 @@ namespace RegexHero
                         Match outerMatch = groups as Match;
                         if (outerMatch != null)
                         {
-                            this.materialsBox.Select(outerMatch.Index, outerMatch.Length);
-                            this.materialsBox.SelectionColor = Color.Green;
+                            if (currentCount++ > maxUpdates) { continue; }
+                            this.UpdateMaterialColor(outerMatch.Index, outerMatch.Length, this.GetColor(currentCount));
                         }
                     }
                 }
             };
+        }
+
+        private Color GetColor(int seed)
+        {
+            switch (seed % 10)
+            {
+                case 0:
+                    return Color.Red;
+                case 1:
+                    return Color.Green;
+                case 2:
+                    return Color.HotPink;
+                case 3:
+                    return Color.Lavender;
+                case 4:
+                    return Color.Blue;
+                case 5:
+                    return Color.Crimson;
+                case 6:
+                    return Color.DarkOliveGreen;
+                case 7:
+                    return Color.Chocolate;
+                case 8:
+                    return Color.BlanchedAlmond;
+                case 9:
+                    return Color.Aquamarine;
+                default:
+                    return Color.White;
+            }
+        }
+
+        private void UpdateMaterialColor(int start, int end, Color color)
+        {
+            this.materialsBox.Select(start, end);
+            this.materialsBox.SelectionColor = color;
         }
 
         private void NoCheating(object sender, LinkLabelLinkClickedEventArgs e)
