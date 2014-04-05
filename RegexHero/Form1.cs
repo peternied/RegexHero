@@ -149,7 +149,8 @@ namespace RegexHero
 
         private void NoCheating(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            MessageBox.Show("No Cheating!");
+            CheatSheetWindow window = new CheatSheetWindow();
+            window.Show(this);
         }
 
         private void RegexSourceTextChanged(object sender, EventArgs e)
