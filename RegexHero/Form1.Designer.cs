@@ -35,13 +35,13 @@
             this.previewPanel = new System.Windows.Forms.Panel();
             this.materialsBox = new System.Windows.Forms.RichTextBox();
             this.resultsPanel = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.maxScoreLabel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.scoreLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.highScoresTextBox = new System.Windows.Forms.RichTextBox();
             this.highScoresPanel = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.maxScoreLabel = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.dataEntryPanel.SuspendLayout();
             this.previewPanel.SuspendLayout();
@@ -66,7 +66,7 @@
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(864, 22);
-            this.textBox1.TabIndex = 2;
+            this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.RegexSourceTextChanged);
             // 
             // linkLabel1
@@ -106,6 +106,7 @@
             this.materialsBox.Location = new System.Drawing.Point(0, 0);
             this.materialsBox.Margin = new System.Windows.Forms.Padding(4);
             this.materialsBox.Name = "materialsBox";
+            this.materialsBox.ReadOnly = true;
             this.materialsBox.Size = new System.Drawing.Size(879, 304);
             this.materialsBox.TabIndex = 0;
             this.materialsBox.Text = "";
@@ -122,6 +123,37 @@
             this.resultsPanel.Name = "resultsPanel";
             this.resultsPanel.Size = new System.Drawing.Size(879, 44);
             this.resultsPanel.TabIndex = 2;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Enabled = false;
+            this.checkBox1.Location = new System.Drawing.Point(732, 5);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(141, 21);
+            this.checkBox1.TabIndex = 4;
+            this.checkBox1.Text = "Show HighScores";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // maxScoreLabel
+            // 
+            this.maxScoreLabel.AutoSize = true;
+            this.maxScoreLabel.Location = new System.Drawing.Point(269, 5);
+            this.maxScoreLabel.Name = "maxScoreLabel";
+            this.maxScoreLabel.Size = new System.Drawing.Size(16, 17);
+            this.maxScoreLabel.TabIndex = 3;
+            this.maxScoreLabel.Text = "0";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(184, 5);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(82, 17);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "High Score:";
             // 
             // scoreLabel
             // 
@@ -159,36 +191,6 @@
             this.highScoresPanel.Name = "highScoresPanel";
             this.highScoresPanel.Size = new System.Drawing.Size(146, 455);
             this.highScoresPanel.TabIndex = 4;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(184, 5);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 17);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "High Score:";
-            // 
-            // maxScoreLabel
-            // 
-            this.maxScoreLabel.AutoSize = true;
-            this.maxScoreLabel.Location = new System.Drawing.Point(269, 5);
-            this.maxScoreLabel.Name = "maxScoreLabel";
-            this.maxScoreLabel.Size = new System.Drawing.Size(16, 17);
-            this.maxScoreLabel.TabIndex = 3;
-            this.maxScoreLabel.Text = "0";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(732, 5);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(141, 21);
-            this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "Show HighScores";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
