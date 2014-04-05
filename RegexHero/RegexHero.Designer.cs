@@ -1,6 +1,6 @@
 ﻿namespace RegexHero
 {
-    partial class Form1
+    partial class RegexHero
     {
         /// <summary>
         /// Required designer variable.
