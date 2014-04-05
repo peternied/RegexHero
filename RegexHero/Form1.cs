@@ -21,20 +21,17 @@ namespace RegexHero
         private event Action<string, MatchCollection> CalculateScore;
         private Task<GameId> ScoreboardGameId { get; set; }
         private Task<ScoreBoardVersion> ScoreBoardVersion { get; set; }
+        private ScoreBoardService1Client client = new ScoreBoardService1Client();
 
         public Form1()
         {
             InitializeComponent();
 
-            this.ScoreboardGameId = Task<ScoreBoardService1Client>.Factory
-                .StartNew(()=> new ScoreBoardService1Client())
-                .ContinueWith(t => t.Result.GameId("RegexHero", 1));
-
-            this.ScoreBoardVersion = Task<ScoreBoardService1Client>.Factory
-                .StartNew(()=> new ScoreBoardService1Client())
-                .ContinueWith(t => t.Result.ServiceVersion());
+            this.ScoreboardGameId = client.GameIdAsync("RegexHero", 1);
+            this.ScoreBoardVersion = client.ServiceVersionAsync();
 
             this.materialsBox.Text = Resources.example1;
+            this.StartUpdateHighScores(client);
 
             this.UpdateRegex += (pattern) =>
             {
@@ -70,12 +67,10 @@ namespace RegexHero
                 int regexSize = regex.Length;
                 int score = regexSize * matches.Count * (matches.Count != 0 ? matches[0].Groups.Count : 1);
 
-                ScoreBoardService1Client a = new ScoreBoardService.ScoreBoardService1Client();
-                a.SubmitScoreAsync(this.ScoreBoardVersion.Result, this.ScoreboardGameId.Result, Environment.UserName, score);
+                client.SubmitScoreAsync(this.ScoreBoardVersion.Result, this.ScoreboardGameId.Result, Environment.UserName, score);
                 scoreLabel.Text = score.ToString();
 
-                a.RetrieveScoresAsync(this.ScoreBoardVersion.Result, this.ScoreboardGameId.Result)
-                    .ContinueWith(t => highScoresTextBox.Invoke((Action)(() => highScoresTextBox.Text = string.Join(Environment.NewLine, t.Result.Select(i => string.Join(" ", i.Item1, i.Item2))))));
+                this.StartUpdateHighScores(client);
             };
 
             this.UpdatePreviewPane += (matches) =>
@@ -108,6 +103,14 @@ namespace RegexHero
                     }
                 }
             };
+        }
+
+        private void StartUpdateHighScores(ScoreBoardService1Client client)
+        {
+            client.RetrieveScoresAsync(this.ScoreBoardVersion.Result, this.ScoreboardGameId.Result)
+                .ContinueWith(t => highScoresTextBox.Invoke((Action)(() =>
+                    highScoresTextBox.Text = string.Join(Environment.NewLine, t.Result.Select(i => string.Join(" ", i.Item1, i.Item2)))
+                    )));
         }
 
         private Color GetColor(int seed)
