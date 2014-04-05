@@ -16,7 +16,7 @@ namespace RegexHero
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new RegexHero());
+            Application.Run(new Form1());
         }
     }
 }

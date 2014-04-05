@@ -13,7 +13,7 @@ using RegexHero.ScoreBoardService;
 
 namespace RegexHero
 {
-    public partial class RegexHero : Form
+    public partial class Form1 : Form
     {
         private event Action<string> UpdateRegex;
         private event Action<TextBox> BadRegexUpdate;
@@ -22,7 +22,7 @@ namespace RegexHero
         private Task<GameId> ScoreboardGameId { get; set; }
         private Task<ScoreBoardVersion> ScoreBoardVersion { get; set; }
 
-        public RegexHero()
+        public Form1()
         {
             InitializeComponent();
 
