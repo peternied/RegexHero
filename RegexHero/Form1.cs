@@ -147,7 +147,7 @@ namespace RegexHero
             this.materialsBox.SelectionColor = color;
         }
 
-        private void NoCheating(object sender, LinkLabelLinkClickedEventArgs e)
+        private void CheatSheetClick(object sender, LinkLabelLinkClickedEventArgs e)
         {
             CheatSheetWindow window = new CheatSheetWindow();
             window.Show(this);
