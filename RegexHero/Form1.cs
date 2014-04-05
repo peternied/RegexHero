@@ -76,8 +76,6 @@ namespace RegexHero
 
                 a.RetrieveScoresAsync(this.ScoreBoardVersion.Result, this.ScoreboardGameId.Result)
                     .ContinueWith(t => highScoresTextBox.Invoke((Action)(() => highScoresTextBox.Text = string.Join(Environment.NewLine, t.Result.Select(i => string.Join(" ", i.Item1, i.Item2))))));
-
-//                highScoresTextBox.Text = string.Join(Environment.NewLine,.Result.Select(t => string.Join(" ", t.Item1, t.Item2)));
             };
 
             this.UpdatePreviewPane += (matches) =>
