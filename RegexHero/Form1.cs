@@ -81,25 +81,14 @@ namespace RegexHero
 
                 foreach (Match match in matches)
                 {
-                    foreach (object groups in match.Groups)
+                    for (int i = 0; true; i++)
                     {
-                        GroupCollection innerGroup = groups as GroupCollection;
-                        if (innerGroup != null)
+                        Group outerMatch = match.Groups[i];
+                        if (!outerMatch.Success || currentCount++ > maxUpdates)
                         {
-                            foreach (Match innerMatch in innerGroup)
-                            {
-                                if (currentCount++ > maxUpdates) { continue; }
-                                this.UpdateMaterialColor(innerMatch.Index, innerMatch.Length, this.GetColor(currentCount));
-                            }
-                            continue;
+                            break;
                         }
-
-                        Match outerMatch = groups as Match;
-                        if (outerMatch != null)
-                        {
-                            if (currentCount++ > maxUpdates) { continue; }
-                            this.UpdateMaterialColor(outerMatch.Index, outerMatch.Length, this.GetColor(currentCount));
-                        }
+                        this.UpdateMaterialColor(outerMatch.Index, outerMatch.Length, this.GetColor(currentCount));
                     }
                 }
             };
@@ -115,7 +104,7 @@ namespace RegexHero
 
         private Color GetColor(int seed)
         {
-            switch (seed % 10)
+            switch (seed % 9)
             {
                 case 0:
                     return Color.Red;
@@ -124,7 +113,7 @@ namespace RegexHero
                 case 2:
                     return Color.HotPink;
                 case 3:
-                    return Color.Lavender;
+                    return Color.Firebrick;
                 case 4:
                     return Color.Blue;
                 case 5:
@@ -134,7 +123,7 @@ namespace RegexHero
                 case 7:
                     return Color.Chocolate;
                 case 8:
-                    return Color.BlanchedAlmond;
+                    return Color.DarkOrange;
                 case 9:
                     return Color.Aquamarine;
                 default:
