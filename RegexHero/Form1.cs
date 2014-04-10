@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using RegexHero.Properties;
 using RegexHero.ScoreBoardService;
+using System.Net;
 
 namespace RegexHero
 {
@@ -19,9 +20,13 @@ namespace RegexHero
         private event Action<TextBox> BadRegexUpdate;
         private event Action<MatchCollection> UpdatePreviewPane;
         private event Action<string, MatchCollection> CalculateScore;
+        private event Action<string> TabLoading;
+        private event Action<string> TabLoadComplete;
+
         private Task<GameId> ScoreboardGameId { get; set; }
         private Task<ScoreBoardVersion> ScoreBoardVersion { get; set; }
         private ScoreBoardService1Client client = new ScoreBoardService1Client();
+        private DailyTopicCapturer DailyTopicCapturer { get; set; }
 
         public Form1()
         {
@@ -31,7 +36,6 @@ namespace RegexHero
             this.ScoreBoardVersion = client.ServiceVersionAsync();
 
             this.materialsBox.Text = Resources.example1;
-            this.StartUpdateHighScores(client);
 
             this.UpdateRegex += (pattern) =>
             {
@@ -92,6 +96,39 @@ namespace RegexHero
                     }
                 }
             };
+
+            this.tabControl.SelectedIndexChanged += (source, args) =>
+            {
+                this.TabLoading(this.tabControl.SelectedTab.Text);
+            };
+
+            this.TabLoading += (name) =>
+            {
+                this.materialsBox.Clear();
+                WebClient webClient = new WebClient();
+                string url = "http://www.bing.com/search?q=" + name.Replace(' ', '+');
+                webClient
+                    .DownloadDataTaskAsync(url)
+                    .ContinueWith(t =>
+                    {
+                        char[] chars = new char[1024 * 1024];
+                        int length = Encoding.UTF8.GetDecoder().GetChars(t.Result, 0, t.Result.Length, chars, 0);
+                        string temp = new string(chars, 0, length);
+                        Regex results = new Regex("<ol id=\"b_results\">", RegexOptions.Multiline);
+                        Regex primaryLinks = new Regex("<li\\W+class=\"b_algo\">\\W*<h2>\\W*<a href=\"(.+)\" h=\".+\">", RegexOptions.Multiline);
+                        Match resultsMatch = results.Match(temp);
+                        Match resultsPrimaryLinks = primaryLinks.Match(temp, resultsMatch.Index);
+                        return resultsPrimaryLinks;
+                    });
+            };
+
+            this.DailyTopicCapturer = new DailyTopicCapturer();
+            this.DailyTopicCapturer.GetCurrentTopics()
+                .ToList()
+                .ForEach(topic => this.tabControl.TabPages.Add(topic));
+            materialsBox.Dock = DockStyle.None;
+
+            this.StartUpdateHighScores(client);
         }
 
         private void StartUpdateHighScores(ScoreBoardService1Client client)

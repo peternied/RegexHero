@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.previewPanel = new System.Windows.Forms.Panel();
             this.materialsBox = new System.Windows.Forms.RichTextBox();
+            this.tabControl = new System.Windows.Forms.TabControl();
             this.resultsPanel = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.maxScoreLabel = new System.Windows.Forms.Label();
@@ -57,7 +58,7 @@
             this.dataEntryPanel.Location = new System.Drawing.Point(17, 15);
             this.dataEntryPanel.Margin = new System.Windows.Forms.Padding(4);
             this.dataEntryPanel.Name = "dataEntryPanel";
-            this.dataEntryPanel.Size = new System.Drawing.Size(879, 91);
+            this.dataEntryPanel.Size = new System.Drawing.Size(879, 67);
             this.dataEntryPanel.TabIndex = 0;
             // 
             // textBox1
@@ -94,22 +95,31 @@
             // previewPanel
             // 
             this.previewPanel.Controls.Add(this.materialsBox);
-            this.previewPanel.Location = new System.Drawing.Point(17, 114);
+            this.previewPanel.Controls.Add(this.tabControl);
+            this.previewPanel.Location = new System.Drawing.Point(17, 90);
             this.previewPanel.Margin = new System.Windows.Forms.Padding(4);
             this.previewPanel.Name = "previewPanel";
-            this.previewPanel.Size = new System.Drawing.Size(879, 304);
+            this.previewPanel.Size = new System.Drawing.Size(879, 328);
             this.previewPanel.TabIndex = 1;
             // 
             // materialsBox
             // 
-            this.materialsBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.materialsBox.Location = new System.Drawing.Point(0, 0);
+            this.materialsBox.Location = new System.Drawing.Point(6, 23);
             this.materialsBox.Margin = new System.Windows.Forms.Padding(4);
             this.materialsBox.Name = "materialsBox";
             this.materialsBox.ReadOnly = true;
-            this.materialsBox.Size = new System.Drawing.Size(879, 304);
+            this.materialsBox.Size = new System.Drawing.Size(865, 296);
             this.materialsBox.TabIndex = 0;
             this.materialsBox.Text = "";
+            // 
+            // tabControl
+            // 
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(879, 328);
+            this.tabControl.TabIndex = 1;
             // 
             // resultsPanel
             // 
@@ -234,13 +244,14 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label scoreLabel;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox materialsBox;
         private System.Windows.Forms.RichTextBox highScoresTextBox;
         private System.Windows.Forms.Label maxScoreLabel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel highScoresPanel;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.RichTextBox materialsBox;
     }
 }
 
